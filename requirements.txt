@@ -2,7 +2,9 @@ autopep8==1.6.0
 backcall==0.2.0
 bcrypt==3.1.4
 blinker==1.4
+certifi==2022.5.18.1
 cffi==1.14.2
+charset-normalizer==2.0.12
 click==8.0.4
 decorator==5.1.1
 Flask==2.0.3
@@ -11,6 +13,7 @@ Flask-DebugToolbar==0.11.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
 greenlet==1.1.2
+idna==3.3
 ipython==7.19.0
 itsdangerous==2.1.1
 jedi==0.18.1
@@ -21,14 +24,17 @@ pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.28
 psycopg2-binary==2.9.3
-pycparser==2.19
 ptyprocess==0.7.0
 pycodestyle==2.8.0
+pycparser==2.19
 Pygments==2.11.2
-SQLAlchemy==1.4.32
+requests==2.27.1
 six==1.11.0
+SQLAlchemy==1.4.32
 toml==0.10.2
 traitlets==5.1.1
+urllib3==1.26.9
 wcwidth==0.2.5
 Werkzeug==2.0.3
 WTForms==3.0.1
+yelpapi==2.4.0
