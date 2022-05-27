@@ -7,6 +7,8 @@ from models import db, connect_db
 
 app = Flask(__name__)
 
+app.run(debug=True)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bite_finder_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "oh-so-secret"
