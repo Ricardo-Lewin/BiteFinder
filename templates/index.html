@@ -1,13 +1,28 @@
 {% extends 'base.html' %} {% block content %}
 <h2>For the indecisive folks out there</h2>
 <p>Find food options near you just with the click of a button!</p>
+<div class="form-container">
+  <form method="POST">
+    {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+    'hidden' %}
+    <p>
+      {{ field.label }} {{ field(class_="form-control") }} {% for error in
+      field.errors %}
+      <span class="form-text text-danger">{{ error }}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+
+    <button class="btn btn-success" type="submit">Login</button>
+  </form>
+</div>
 <div class="container-sm d-flex justify-content-center">
   <button type="button" class="btn btn-primary btn-lg btn btn-success">
     What to Eat!
   </button>
 </div>
 <div class="container-sm d-flex justify-content-center">
-  <div class="slidecontainer">
+  <div class="slide-container">
     <input
       type="range"
       min="5"

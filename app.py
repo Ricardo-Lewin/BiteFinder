@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, session, flash, jsonify, request
 
 from models import db, connect_db
-# from forms import UserForm, EditCarForm
+from forms import SearchForm
 # from sqlalchemy.exc import IntegrityError
 
 
@@ -16,6 +16,15 @@ app.config['SECRET_KEY'] = "oh-so-secret"
 connect_db(app)
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    return render_template('index.html')
+
+    form = SearchForm()
+
+    if form.validate_on_submit():
+        zip_code = form.zip_code.data
+        print(zip_code)
+        return redirect('/')
+
+    else:
+        return render_template('index.html', form=form)
