@@ -13,26 +13,24 @@
         {% endfor %}
       </p>
       {% endfor %}
-
+      <div class="slide-container">
+        <input
+          type="range"
+          min="5"
+          max="25"
+          step="5"
+          value="5"
+          class="slider"
+          id="myRange"
+        />
+        <p>Distance: <span id="demo"></span></p>
+      </div>
       <div class="container-sm d-flex justify-content-center">
         <button type="button" class="btn btn-primary btn-lg btn btn-success">
           What to Eat!
         </button>
       </div>
-      <div class="container-sm d-flex justify-content-center">
-        <div class="slide-container">
-          <input
-            type="range"
-            min="5"
-            max="25"
-            step="5"
-            value="5"
-            class="slider"
-            id="myRange"
-          />
-          <p>Distance: <span id="demo"></span></p>
-        </div>
-      </div>
+      <div class="container-sm d-flex justify-content-center"></div>
     </form>
   </div>
 </main>
