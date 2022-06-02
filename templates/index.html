@@ -3,13 +3,13 @@
   <h2>For the indecisive folks out there</h2>
   <p>Find food options near you just with the click of a button!</p>
   <div class="form-container">
-    <form method="POST" action="/api/get-restaurant">
+    <form id="search-form" method="POST" action="/api/get-restaurant">
       {{ form.hidden_tag() }}
       <p>
-        {{ form.zip_code.label }} {{ form.zip_code(class_="form-control") }}
+        {{ form.zip_code.label }} {{ form.zip_code(class_="form-control" , id="zip") }}
       </p>
       <p>
-        {{ form.category.label }} {{ form.category(class_="form-control") }}
+        {{ form.category.label }} {{ form.category(class_="form-control", id="category") }}
       </p>
       <p>
         {{ form.radius.label }} {{ form.radius(class_="form-control slider", id
@@ -23,7 +23,7 @@
         
       </div>
       <div class="container-sm d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary btn-lg btn btn-success">
+        <button id="search-form-button" type="submit" class="btn btn-primary btn-lg btn btn-success">
           What to Eat!
         </button>
       </div>

@@ -1,14 +1,18 @@
 
 from flask import Flask, render_template, redirect, session, flash, jsonify, request
+from flask_wtf.csrf import CSRFProtect
+
+
 from models import db, connect_db
 from forms import SearchForm
-from yelpAPI import API_KEY
+from yelpAPI import API_KEY, get_business_data
 import requests
 
 # from sqlalchemy.exc import IntegrityError
 
-
 app = Flask(__name__)
+
+csrf = CSRFProtect(app)
 
 app.run(debug=True)
 
@@ -36,9 +40,12 @@ def get_restaurant():
         zip_code = form.zip_code.data
         category = form.category.data
         radius = form.radius.data
-        # Create function that converts miles to meters
+
         print('********************')
         print(zip_code, category, radius)
         print('********************')
+
+        business = get_business_data(zip_code, category, radius)
+        return (business, 201)
 
     return redirect('/')
