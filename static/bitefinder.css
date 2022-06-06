@@ -33,6 +33,7 @@ body {
     letter-spacing: 3px;
   }
 
+/* BITEFINDER LOGO */
 #logo-1 {
 color: black;
 }
@@ -82,4 +83,14 @@ color: black;
 /* END RADIUS SLIDER */
   
 
+/* RESTAURANT CARD */
+#card-container {
+  padding: 20px;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+  }
+/* END RESTAURANT CARD */
 

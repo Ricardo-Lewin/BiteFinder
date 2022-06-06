@@ -75,36 +75,14 @@
       <section>
         <!-- Intro -->
         <div id="intro" class="bg-image vh-100">
-          <div
-            class="mask"
-            style="background-color: rgba(250, 182, 162, 0.15)"
-          ></div>
+          <div class="mask"></div>
         </div>
         <!-- Intro -->
       </section>
       <!--Section: Design Block-->
     </header>
-    <!-- <nav class="navbar navbar-light bg-primary justify-content-between">
-      <div class="container">
-        <a href="/" class="navbar-brand text-light">BiteFinder</a>
-        <ul class="nav navbar-nav flex-row float-right">
-          {% if session['user_id'] %}
-          <li class="nav-item">
-            <a class="nav-link pr-3 text-light" href="/logout">Logout</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link pr-3 text-light" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="/register">Sign up</a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav> -->
 
-    <div class="container" style="margin-top: 2em">
+    <div class="container">
       {% for category, msg in get_flashed_messages(with_categories=True) %}
       <div class="alert alert-{{category}}">{{ msg }}</div>
       {% endfor %} {% block content %} {% endblock %}

@@ -22,13 +22,24 @@
       
         
       </div>
-      <div class="container-sm d-flex justify-content-center">
+      <div id="button-container" class="container-sm d-flex justify-content-center">
         <button id="search-form-button" type="submit" class="btn btn-primary btn-lg btn btn-success">
           What to Eat!
         </button>
       </div>
-      <div class="container-sm d-flex justify-content-center"></div>
     </form>
   </div>
+
+  <div id = "card-container" class="container-sm d-flex justify-content-center hidden">
+  <div class="card text-center" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p id = "restaurant-phone" class="card-text"></p>
+      <a id = "restaurant-yelp"class="card-text"></a>
+      <a href="/" class="btn btn-primary">Search Again!</a>
+    </div>
+  </div>
+</div>
 </main>
 {% endblock %}

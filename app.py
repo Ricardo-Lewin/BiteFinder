@@ -41,9 +41,9 @@ def get_restaurant():
         category = form.category.data
         radius = form.radius.data
 
-        print('********************')
-        print(zip_code, category, radius)
-        print('********************')
+        # print('********************')
+        # print(zip_code, category, radius)
+        # print('********************')
 
         business = get_business_data(zip_code, category, radius)
         return (business, 201)
