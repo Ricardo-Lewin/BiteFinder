@@ -43,8 +43,9 @@ function handleResponse(data) {
   $('.card-img-top').attr('src', random_business.image_url)
   $('#restaurant-phone').text(`Phone: ${random_business.display_phone}`)
   $('#restaurant-yelp').text('Visit on Yelp').attr('href', random_business.url)
+  $('#card-container').removeClass('hidden')
   }
-
+  
 
 
   // Inject our CSRF token into our AJAX request.

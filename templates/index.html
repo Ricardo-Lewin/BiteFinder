@@ -1,35 +1,46 @@
 {% extends 'base.html' %} {% block content %}
 <main>
-  <h2>For the indecisive folks out there</h2>
-  <p>Find food options near you just with the click of a button!</p>
-  <div class="form-container">
-    <form id="search-form" method="POST" action="/api/get-restaurant">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.zip_code.label }} {{ form.zip_code(class_="form-control" , id="zip") }}
-      </p>
-      <p>
-        {{ form.category.label }} {{ form.category(class_="form-control", id="category") }}
-      </p>
-      <p>
-        {{ form.radius.label }} {{ form.radius(class_="form-control slider", id
-        = "myRange", min = "0", max = "25", step = "5", value = "5") }}
-        <p><span id="output"></span></p>
-      </p>
-      {% for error in form.errors %}
-      <span class="form-text text-danger">{{ error }}</span>
-      {% endfor %}
+    <div class="intro">
+    <h2>For the indecisive folks out there</h2>
+    <p>Find food options near you just with the click of a button!</p>
+    </div>
+<div class="row row-cols-2">
+    <div class="col">
+        <div class="form-container">
+            <form id="search-form" method="POST" action="/api/get-restaurant">
+            
+                {{ form.hidden_tag() }}
+            
+            <p>
+            {{ form.zip_code.label }} {{ form.zip_code(class_="form-control" , id="zip") }}
+            </p>
+
+            <p>
+            {{ form.category.label }} {{ form.category(class_="form-control", id="category") }}
+            </p>
+
+            <p>
+            {{ form.radius.label }} {{ form.radius(class_="form-control slider", id
+            = "myRange", min = "0", max = "25", step = "5", value = "5") }}
+            <p><span id="output"></span></p>
+            </p>
+
+            {% for error in form.errors %}
+            <span class="form-text text-danger">{{ error }}</span>
+            {% endfor %}
       
         
-      </div>
+        
       <div id="button-container" class="container-sm d-flex justify-content-center">
         <button id="search-form-button" type="submit" class="btn btn-primary btn-lg btn btn-success">
           What to Eat!
         </button>
       </div>
-    </form>
-  </div>
+        </form>
+    </div>
+</div>
 
+<div class="col">
   <div id = "card-container" class="container-sm d-flex justify-content-center hidden">
   <div class="card text-center" style="width: 18rem;">
     <img src="..." class="card-img-top" alt="...">
@@ -37,9 +48,58 @@
       <h5 class="card-title">Card title</h5>
       <p id = "restaurant-phone" class="card-text"></p>
       <a id = "restaurant-yelp"class="card-text"></a>
-      <a href="/" class="btn btn-primary">Search Again!</a>
     </div>
   </div>
 </div>
+</div>
+</div>
 </main>
+<footer class="text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        
+        <!-- Github -->
+        <a
+          class="btn btn-primary btn-floating m-1"
+          style="background-color: #333333;"
+          href="https://github.com/Ricardo-Lewin/BiteFinder"
+          role="button"
+          ><i class="fab fa-github"></i
+        ></a>
+        
+  
+        <!-- Google -->
+        <a
+          class="btn btn-primary btn-floating m-1"
+          style="background-color: #dd4b39;"
+          href="https://drive.google.com/file/d/1VB7OfMk9O0hOWUNwOTl1I2gNpqs6NgSq/view?usp=sharing"
+          role="button"
+          ><i class="fas fa-file"></i
+        ></a>
+  
+        <!-- Linkedin -->
+        <a
+          class="btn btn-primary btn-floating m-1"
+          style="background-color: #0082ca;"
+          href="https://www.linkedin.com/in/ricardo-lewin/"
+          role="button"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+
+        <!-- Twitter -->
+        <a
+          class="btn btn-primary btn-floating m-1"
+          style="background-color: #55acee;"
+          href="https://twitter.com/Ricardo_L3win"
+          role="button"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </section>
+      <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+  
+  </footer>
 {% endblock %}

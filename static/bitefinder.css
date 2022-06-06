@@ -2,6 +2,9 @@ body {
     background-color: rgba(76, 98, 136, 0.886);
 }
 
+main {
+  padding-top: 10%;
+}
 /* NAV BAR  */
 
 .navbar-scroll .nav-link,
@@ -43,6 +46,9 @@ color: black;
 }
 /* END NAV BAR */
 
+.intro {
+  text-align: center;
+}
 
 /* RADIUS SLIDER */
 
