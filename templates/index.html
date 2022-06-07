@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <main>
     <div class="intro">
-    <h2>For the indecisive folks out there</h2>
+    <h2>Can't Decide What To Eat?</h2>
     <p>Find food options near you just with the click of a button!</p>
     </div>
 <div class="row row-cols-2">
@@ -21,7 +21,7 @@
 
             <p>
             {{ form.radius.label }} {{ form.radius(class_="form-control slider", id
-            = "myRange", min = "0", max = "25", step = "5", value = "5") }}
+            = "myRange", min = "5", max = "20", step = "5", value = "5") }}
             <p><span id="output"></span></p>
             </p>
 
@@ -43,9 +43,11 @@
 <div class="col">
   <div id = "card-container" class="container-sm d-flex justify-content-center hidden">
   <div class="card text-center" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="" class="card-img-top" alt="">
     <div class="card-body">
       <h5 class="card-title">Card title</h5>
+      <p id = "restaurant-address" class="card-text"></p>
+      <p id = "restaurant-city" class="card-text"></p>
       <p id = "restaurant-phone" class="card-text"></p>
       <a id = "restaurant-yelp"class="card-text"></a>
     </div>

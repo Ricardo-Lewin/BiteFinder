@@ -3,7 +3,7 @@ body {
 }
 
 main {
-  padding-top: 10%;
+  padding-top: 15px;
 }
 /* NAV BAR  */
 
@@ -50,6 +50,9 @@ color: black;
   text-align: center;
 }
 
+#alerts {
+  padding-top: 100px;
+}
 /* RADIUS SLIDER */
 
 .slide-container {

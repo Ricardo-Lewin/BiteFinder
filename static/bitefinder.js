@@ -1,19 +1,30 @@
 let slider = document.getElementById("myRange");
 let output = document.getElementById("output");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = `within ${slider.value} miles`; // Display the default slider value
+
+
+// Page Load 
+// output.innerHTML = "within" + " " + 5 + " " + "miles";
 
 // Update the current slider value (each time you drag the slider handle)
-// slider.onload = function() {
-//   output.innerHTML = this.value + " " + "miles";
-// }
 slider.oninput = function() {
-  output.innerHTML = this.value + " " + "miles";
+  output.innerHTML = `within ${this.value} miles`;
 }
 
 // helper function - used to generate random index for search 
-function random(mn, mx) {
+function randomize(mn, mx) {
   return Math.random() * (mx - mn) + mn;
 }
+
+function showCard() {
+  $('.card-title').text(random_business.name)
+  $('.card-img-top').attr('src', random_business.image_url)
+  $('#restaurant-address').text(`${random_business.location.display_address[0]}`)
+  $('#restaurant-city').text(`${random_business.location.display_address[1]}`)
+  $('#restaurant-phone').text(`Phone: ${random_business.display_phone}`)
+  $('#restaurant-yelp').text('Visit on Yelp').attr('href', random_business.url)
+  $('#card-container').removeClass('hidden')
+  }
 
 // makes call to backend API 
 $(document).ready(function() {
@@ -36,15 +47,14 @@ $(document).ready(function() {
 function handleResponse(data) {
   // console.log(data.businesses[1].name)
   business_array = Array(data.businesses)
-  random_business = business_array[0][Math.floor(random(1, 20))-1]
+
+  random_business = business_array[0][Math.floor(randomize(1, 20))-1]
+
+  showCard()
   console.log(random_business)
+}
   
-  $('.card-title').text(random_business.name)
-  $('.card-img-top').attr('src', random_business.image_url)
-  $('#restaurant-phone').text(`Phone: ${random_business.display_phone}`)
-  $('#restaurant-yelp').text('Visit on Yelp').attr('href', random_business.url)
-  $('#card-container').removeClass('hidden')
-  }
+ 
   
 
 
