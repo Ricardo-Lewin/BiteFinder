@@ -3,8 +3,6 @@ let output = document.getElementById("output");
 output.innerHTML = `within ${slider.value} miles`; // Display the default slider value
 
 
-// Page Load 
-// output.innerHTML = "within" + " " + 5 + " " + "miles";
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
@@ -26,6 +24,17 @@ function showCard() {
   $('#card-container').removeClass('hidden')
   }
 
+function failCard() {
+  $('.card-title').text('Not a valid Zip Code!')
+  $('.card-img-top').attr('src', './images/broken-1.png')
+  $('#restaurant-address').text('Please check zip code and try again!')
+  $('#restaurant-city').empty()
+  $('#restaurant-phone').empty()
+  $('#restaurant-yelp').empty()
+  $('#card-container').removeClass('hidden')
+  }
+
+
 // makes call to backend API 
 $(document).ready(function() {
   $('form').submit(function (e) {
@@ -37,6 +46,10 @@ $(document).ready(function() {
           success: function (data) {
               // console.log(data)  // display the returned data in the console.
               handleResponse(data)
+              console.log('successful post')
+          },
+          error: function (error) {
+            console.log(error)
           }
       });
       e.preventDefault(); // block the traditional submission of the form.
@@ -45,13 +58,20 @@ $(document).ready(function() {
 
 // Handles object returned and accesses values
 function handleResponse(data) {
-  // console.log(data.businesses[1].name)
+  
   business_array = Array(data.businesses)
-
+  try{
   random_business = business_array[0][Math.floor(randomize(1, 20))-1]
-
   showCard()
   console.log(random_business)
+  } catch(e){
+    if (e instanceof TypeError) {
+      failCard()
+    }
+  }
+
+
+  
 }
   
  

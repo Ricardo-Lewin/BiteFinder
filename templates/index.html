@@ -4,6 +4,7 @@
     <h2>Can't Decide What To Eat?</h2>
     <p>Find food options near you just with the click of a button!</p>
     </div>
+
 <div class="row row-cols-2">
     <div class="col">
         <div class="form-container">
@@ -12,7 +13,7 @@
                 {{ form.hidden_tag() }}
             
             <p>
-            {{ form.zip_code.label }} {{ form.zip_code(class_="form-control" , id="zip") }}
+            {{ form.zip_code.label }} {{ form.zip_code(class_="form-control" , id="zip", minlength=5, maxlength=5) }}
             </p>
 
             <p>
@@ -31,28 +32,26 @@
       
         
         
-      <div id="button-container" class="container-sm d-flex justify-content-center">
-        <button id="search-form-button" type="submit" class="btn btn-primary btn-lg btn btn-success">
+            <div id="button-container" class="container-sm d-flex justify-content-center">
+            <button id="search-form-button" type="submit" class="btn btn-primary btn-lg btn btn-success">
           What to Eat!
-        </button>
-      </div>
-        </form>
+            </button>
+            </div>
+            </form>
     </div>
 </div>
 
 <div class="col">
-  <div id = "card-container" class="container-sm d-flex justify-content-center hidden">
-  <div class="card text-center" style="width: 18rem;">
-    <img src="" class="card-img-top" alt="">
+  <div id = "card-container" class="card text-white bg-info mb-3 hidden" style="max-width: 18rem;">
+    <div class="card-header text-center">Your Pick!</div>
+    <img src="" class="card-img-top img-thumbnail" alt="">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p id = "restaurant-address" class="card-text"></p>
-      <p id = "restaurant-city" class="card-text"></p>
-      <p id = "restaurant-phone" class="card-text"></p>
-      <a id = "restaurant-yelp"class="card-text"></a>
+      <h5 class="card-title text-center">Info card title</h5>
+      <p id = "restaurant-address"class="card-text text-center"></p>
+      <p id = "restaurant-city"class="card-text text-center"></p>
+      <p id = "restaurant-phone" class="card-text text-center"></p>
+      <a id = "restaurant-yelp"class="card-text text-center"></a>
     </div>
-  </div>
-</div>
 </div>
 </div>
 </main>

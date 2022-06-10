@@ -40,3 +40,4 @@ wcwidth==0.2.5
 Werkzeug==2.0.3
 WTForms==3.0.1
 yelpapi==2.4.0
+zipcodes==1.2.0

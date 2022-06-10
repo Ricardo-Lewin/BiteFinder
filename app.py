@@ -1,11 +1,13 @@
 import requests
+import zipcodes
 
 from flask import Flask, render_template, redirect, session, flash, g
 from flask_wtf.csrf import CSRFProtect
+from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User
 from forms import SearchForm, UserAddForm, LoginForm
 from yelpAPI import API_KEY, get_business_data
-from sqlalchemy.exc import IntegrityError
+
 
 CURR_USER_KEY = "curr_user"
 
@@ -13,7 +15,7 @@ app = Flask(__name__)
 
 csrf = CSRFProtect(app)
 
-# app.run(debug=True)
+app.run(debug=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bite_finder_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -133,18 +135,19 @@ def get_restaurant():
     form = SearchForm()
 
     if form.validate_on_submit():
-        zip_code = form.zip_code.data
-        category = form.category.data
-        radius = form.radius.data
+        while True:
+            try:
+                zip_code = form.zip_code.data
+                category = form.category.data
+                radius = form.radius.data
 
-        # print('********************')
-        # print(zip_code, category, radius)
-        # print('********************')
+                print("line 142",zipcodes.is_real(zip_code))
 
-        business = get_business_data(zip_code, category, radius)
-        return (business, 201)
-
-    return redirect('/')
+                business = get_business_data(zip_code, category, radius)
+                return (business, 201)
+            except:
+                flash("Invalid Zip Code", 'warning')
+                return redirect('/')
 
 
 ##############################################################################
