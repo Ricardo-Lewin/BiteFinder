@@ -25,9 +25,9 @@ function showCard() {
   }
 
 function failCard() {
-  $('.card-title').text('Not a valid Zip Code!')
+  $('.card-title').text('No Search Results Found')
   $('.card-img-top').attr('src', './images/broken-1.png')
-  $('#restaurant-address').text('Please check zip code and try again!')
+  $('#restaurant-address').text('Please check zip code or adjust distance and try again!')
   $('#restaurant-city').empty()
   $('#restaurant-phone').empty()
   $('#restaurant-yelp').empty()
@@ -37,12 +37,12 @@ function failCard() {
 
 // makes call to backend API 
 $(document).ready(function() {
-  $('form').submit(function (e) {
-      let url = '/api/get-restaurant'; // send the form data here.
+  $('#anon-search-form').submit(function (e) {
+      let url = '/api/anon-get-restaurant'; // send the form data here.
       $.ajax({
           type: "POST",
           url: url,
-          data: $('form').serialize(), // serializes the form's elements.
+          data: $('#anon-search-form').serialize(), // serializes the form's elements.
           success: function (data) {
               // console.log(data)  // display the returned data in the console.
               handleResponse(data)
@@ -55,13 +55,32 @@ $(document).ready(function() {
       e.preventDefault(); // block the traditional submission of the form.
   });
 
+  $('#user-search-form').submit(function (e) {
+    let url = '/api/user-get-restaurant'; // send the form data here.
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $('#user-search-form').serialize(), // serializes the form's elements.
+        success: function (data) {
+            // console.log(data)  // display the returned data in the console.
+            handleResponse(data)
+            console.log('successful post')
+            console.log(data)
+        },
+        error: function (error) {
+          console.log(error)
+        }
+    });
+    e.preventDefault(); // block the traditional submission of the form.
+});
+
 
 // Handles object returned and accesses values
 function handleResponse(data) {
   
   business_array = Array(data.businesses)
   try{
-  random_business = business_array[0][Math.floor(randomize(1, 20))-1]
+  random_business = business_array[0][Math.floor(randomize(1, business_array[0].length))-1]
   showCard()
   console.log(random_business)
   } catch(e){
@@ -87,3 +106,4 @@ function handleResponse(data) {
       }
   })
 });
+
