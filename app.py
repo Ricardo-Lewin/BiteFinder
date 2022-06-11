@@ -5,8 +5,8 @@ from flask import Flask, render_template, redirect, session, flash, g
 from flask_wtf.csrf import CSRFProtect
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User
-from forms import SearchForm, UserAddForm, LoginForm
-from yelpAPI import API_KEY, get_business_data
+from forms import AnonSearchForm, UserSearchForm, UserAddForm, LoginForm, EditUserForm
+from yelpAPI import API_KEY, get_business_data, user_get_business_data
 
 
 CURR_USER_KEY = "curr_user"
@@ -31,8 +31,8 @@ connect_db(app)
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global."""
 
-    if CURR_USER_KEY in session:
-        g.user = User.query.get(session[CURR_USER_KEY])
+    if 'CURR_USER_KEY' in session:
+        g.user = User.query.get(session['CURR_USER_KEY'])
 
     else:
         g.user = None
@@ -57,9 +57,37 @@ def do_logout():
 @app.route('/', methods=["GET"])
 def index():
 
-    form = SearchForm()
+    if not g.user:
+        form = AnonSearchForm()
+    
+    form = UserSearchForm()
 
     return render_template('index.html', form=form)
+
+
+@app.route('/users/profile', methods=["GET", "POST"])
+def edit_profile():
+    """Update profile for current user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
+
+    user = g.user
+    form = EditUserForm(obj=user)
+
+    if form.validate_on_submit():
+            # form.populate_obj(user)
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.email = form.email.data
+
+        db.session.commit()
+        flash("Changes Made!", "success")
+        return redirect("/users/profile")
+
+
+    return render_template('users/edit.html', form=form, user_id=user.id)
 
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -128,26 +156,48 @@ def logout():
     return redirect('/')
 
 
+
 #### API ROUTES #######################################
-@app.route('/api/get-restaurant', methods=["POST"])
-def get_restaurant():
+@app.route('/api/anon-get-restaurant', methods=["POST"])
+def anon_get_restaurant():
     """handles call from client side and returns business info"""
-    form = SearchForm()
+
+
+    form = AnonSearchForm()
 
     if form.validate_on_submit():
-        while True:
-            try:
-                zip_code = form.zip_code.data
-                category = form.category.data
-                radius = form.radius.data
+        try:
+            zip_code = form.zip_code.data
+            category = form.category.data
+            radius = form.radius.data
 
-                print("line 142",zipcodes.is_real(zip_code))
 
-                business = get_business_data(zip_code, category, radius)
-                return (business, 201)
-            except:
-                flash("Invalid Zip Code", 'warning')
-                return redirect('/')
+            business = get_business_data(zip_code, category, radius)
+            return (business, 201)
+        except:
+            flash("Invalid Zip Code", 'warning')
+            return redirect('/')
 
+
+@app.route('/api/user-get-restaurant', methods=["POST"])
+def user_get_restaurant():
+    """handles call from client side and returns business info"""
+
+    
+    form = UserSearchForm()
+
+    if form.validate_on_submit():
+        
+            zip_code = form.zip_code.data
+            category = form.category.data
+            radius = form.radius.data
+            price = form.price.data
+
+
+            business = user_get_business_data(zip_code, category, radius, price)
+            return (business, 201)
+        # except:
+        #     flash("Invalid Zip Code", 'warning')
+        #     return redirect('/')
 
 ##############################################################################

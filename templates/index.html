@@ -8,7 +8,8 @@
 <div class="row row-cols-2">
     <div class="col">
         <div class="form-container">
-            <form id="search-form" method="POST" action="/api/get-restaurant">
+            {% if session['CURR_USER_KEY'] %}
+            <form id="user-search-form" method="POST" action="/api/user-get-restaurant">
             
                 {{ form.hidden_tag() }}
             
@@ -20,6 +21,10 @@
             {{ form.category.label }} {{ form.category(class_="form-control", id="category") }}
             </p>
 
+            <p>
+              {{ form.price.label }} {{ form.price(class_="form-control", id="price") }}
+              </p>
+            
             <p>
             {{ form.radius.label }} {{ form.radius(class_="form-control slider", id
             = "myRange", min = "5", max = "20", step = "5", value = "5") }}
@@ -38,6 +43,38 @@
             </button>
             </div>
             </form>
+            {% else %}
+            <form id="anon-search-form" method="POST" action="/api/anon-get-restaurant">
+            
+              {{ form.hidden_tag() }}
+          
+          <p>
+          {{ form.zip_code.label }} {{ form.zip_code(class_="form-control" , id="zip", minlength=5, maxlength=5) }}
+          </p>
+
+          <p>
+          {{ form.category.label }} {{ form.category(class_="form-control", id="category") }}
+          </p>
+          
+          <p>
+          {{ form.radius.label }} {{ form.radius(class_="form-control slider", id
+          = "myRange", min = "5", max = "20", step = "5", value = "5") }}
+          <p><span id="output"></span></p>
+          </p>
+
+          {% for error in form.errors %}
+          <span class="form-text text-danger">{{ error }}</span>
+          {% endfor %}
+    
+      
+      
+          <div id="button-container" class="container-sm d-flex justify-content-center">
+          <button id="search-form-button" type="submit" class="btn btn-primary btn-lg btn btn-success">
+        What to Eat!
+          </button>
+          </div>
+          </form>
+          {% endif %}
     </div>
 </div>
 
