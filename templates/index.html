@@ -1,9 +1,12 @@
 {% extends 'base.html' %} {% block content %}
 <main>
     <div class="intro">
-    <h2>Can't Decide What To Eat?</h2>
-    <p>Find food options near you just with the click of a button!</p>
+    <h2>Can't Decide on What To Eat?</h2>
+    <p>Pick a random food spot near you just with the click of a button!</p>
+    {% if session['CURR_USER_KEY'] == Undefined %}
+    <p>Want to also search by price? Add more to your search by <a href="/signup">signing up!</a></p>
     </div>
+    {% endif %}
 
 <div class="row row-cols-2">
     <div class="col">

@@ -1,12 +1,9 @@
-import requests
-import zipcodes
-
 from flask import Flask, render_template, redirect, session, flash, g
 from flask_wtf.csrf import CSRFProtect
 from sqlalchemy.exc import IntegrityError
 from models import db, connect_db, User
 from forms import AnonSearchForm, UserSearchForm, UserAddForm, LoginForm, EditUserForm
-from yelpAPI import API_KEY, get_business_data, user_get_business_data
+from yelpAPI import get_business_data, user_get_business_data
 
 
 CURR_USER_KEY = "curr_user"
@@ -15,7 +12,7 @@ app = Flask(__name__)
 
 csrf = CSRFProtect(app)
 
-app.run(debug=True)
+# app.run(debug=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bite_finder_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -42,11 +39,10 @@ def do_login(user):
     """Log in user."""
     
     session['CURR_USER_KEY'] = user.id
-    print(CURR_USER_KEY)
+    
 
 def do_logout():
     """Logout user."""
-    print('line 47', session['CURR_USER_KEY'])
     if session['CURR_USER_KEY'] != "curr_user":
         del session['CURR_USER_KEY']
         
@@ -101,6 +97,8 @@ def signup():
     If the there already is a user with that username: flash message
     and re-present form.
     """
+    if g.user:
+        return redirect('/')
 
     form = UserAddForm()
 
@@ -131,6 +129,9 @@ def signup():
 def login():
     """Handle user login."""
 
+    if g.user:
+        return redirect('/')
+
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -139,7 +140,7 @@ def login():
 
         if user:
             do_login(user)
-            flash(f"Hello, {user.first_name}!", "success")
+            flash(f"Welcome Back, {user.first_name}!", "success")
             return redirect("/")
 
         flash("Invalid credentials.", 'danger')
@@ -150,6 +151,8 @@ def login():
 @app.route('/logout')
 def logout():
     """Handle logout of user."""
+    if not g.user:
+        return redirect("/")
 
     do_logout()
     flash("Goodbye!", "info")
