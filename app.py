@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, redirect, session, flash, g
 from flask_wtf.csrf import CSRFProtect
 from sqlalchemy.exc import IntegrityError
@@ -14,9 +16,9 @@ csrf = CSRFProtect(app)
 
 # app.run(debug=True)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bite_finder_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL', 'postgresql:///bite_finder_db'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = "oh-so-secret"
+app.config['SECRET_KEY'] = os.environ.get('1234', "it's a secret")
 
 connect_db(app)
 
@@ -27,9 +29,11 @@ connect_db(app)
 @app.before_request
 def add_user_to_g():
     """If we're logged in, add curr user to Flask global."""
-
-    if 'CURR_USER_KEY' in session:
-        g.user = User.query.get(session['CURR_USER_KEY'])
+    
+    if CURR_USER_KEY in session:
+       
+        g.user = User.query.get(session[CURR_USER_KEY])
+        
 
     else:
         g.user = None
@@ -38,13 +42,13 @@ def add_user_to_g():
 def do_login(user):
     """Log in user."""
     
-    session['CURR_USER_KEY'] = user.id
+    session[CURR_USER_KEY] = user.id
     
 
 def do_logout():
     """Logout user."""
-    if session['CURR_USER_KEY'] != "curr_user":
-        del session['CURR_USER_KEY']
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
         
 
 ##############################################################################
@@ -53,17 +57,17 @@ def do_logout():
 @app.route('/', methods=["GET"])
 def index():
 
-    if not g.user:
+    if g.user:
+        form = UserSearchForm()
+    else:
         form = AnonSearchForm()
     
-    form = UserSearchForm()
-
     return render_template('index.html', form=form)
 
 
 @app.route('/users/profile', methods=["GET", "POST"])
 def edit_profile():
-    """Update profile for current user."""
+    """Show/Update profile for current user."""
 
     if not g.user:
         flash("Access unauthorized.", "danger")
@@ -73,7 +77,7 @@ def edit_profile():
     form = EditUserForm(obj=user)
 
     if form.validate_on_submit():
-            # form.populate_obj(user)
+    
         user.first_name = form.first_name.data
         user.last_name = form.last_name.data
         user.email = form.email.data
@@ -81,7 +85,6 @@ def edit_profile():
         db.session.commit()
         flash("Changes Made!", "success")
         return redirect("/users/profile")
-
 
     return render_template('users/edit.html', form=form, user_id=user.id)
 
@@ -98,6 +101,7 @@ def signup():
     and re-present form.
     """
     if g.user:
+        
         return redirect('/')
 
     form = UserAddForm()
@@ -119,6 +123,7 @@ def signup():
             return render_template('users/signup.html', form=form)
 
         do_login(user)
+
         return redirect("/")
 
     else:
@@ -165,21 +170,24 @@ def logout():
 def anon_get_restaurant():
     """handles call from client side and returns business info"""
 
-
+    
     form = AnonSearchForm()
-
+    
     if form.validate_on_submit():
         try:
+            
             zip_code = form.zip_code.data
             category = form.category.data
             radius = form.radius.data
 
-
+            
             business = get_business_data(zip_code, category, radius)
             return (business, 201)
         except:
             flash("Invalid Zip Code", 'warning')
             return redirect('/')
+    else: 
+        return("Form Error",form.errors)
 
 
 @app.route('/api/user-get-restaurant', methods=["POST"])
@@ -199,8 +207,6 @@ def user_get_restaurant():
 
             business = user_get_business_data(zip_code, category, radius, price)
             return (business, 201)
-        # except:
-        #     flash("Invalid Zip Code", 'warning')
-        #     return redirect('/')
+        
 
 ##############################################################################

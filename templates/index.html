@@ -11,7 +11,7 @@
 <div class="row row-cols-2">
     <div class="col">
         <div class="form-container">
-            {% if session['CURR_USER_KEY'] %}
+            {% if g.user %}
             <form id="user-search-form" method="POST" action="/api/user-get-restaurant">
             
                 {{ form.hidden_tag() }}

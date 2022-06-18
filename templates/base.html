@@ -39,7 +39,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-              {% if session['CURR_USER_KEY'] %}
+              {% if g.user %}
               <li class="nav-item">
                 <a class="nav-link pr-3 text-light" href="/users/profile"
                   >Profile</a
