@@ -2,7 +2,7 @@
 
 # run these tests like:
 #
-#    python -m unittest test_user_model.py
+#    python -m unittest test_user_models.py
 
 
 from app import app
@@ -109,7 +109,7 @@ class UserModelTestCase(TestCase):
         self.assertEqual(u.id, self.uid1)
 
     def test_invalid_username(self):
-        self.assertFalse(User.authenticate("badusername", "password"))
+        self.assertFalse(User.authenticate("email1@email.com", "badpassword"))
 
     def test_wrong_password(self):
-        self.assertFalse(User.authenticate(self.u1.username, "badpassword"))
+        self.assertFalse(User.authenticate(self.u1.email, "email1@email.com"))
