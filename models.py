@@ -83,6 +83,3 @@ class User(db.Model):
                 return user
 
         return False
-
-
-db.create_all()
