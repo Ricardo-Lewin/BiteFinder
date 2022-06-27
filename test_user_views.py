@@ -2,11 +2,12 @@
 #
 #    FLASK_ENV=production python -m unittest test_user_views.py
 
-from unittest import TestCase
 from app import app, CURR_USER_KEY
 import os
+from unittest import TestCase
 
-from models import db, connect_db, User
+
+from models import db, User
 
 
 # BEFORE we import our app, let's set an environmental variable
@@ -14,7 +15,7 @@ from models import db, connect_db, User
 # before we import our app, since that will have already
 # connected to the database
 
-os.environ['DATABASE_URL'] = "postgresql:///test_bitefinder"
+os.environ['DATABASE_URL'] = "postgresql:///bitefinder_test"
 
 # Create our tables (we do this here, so we only create the tables
 # once for all tests --- in each test, we'll delete the data
@@ -23,7 +24,7 @@ os.environ['DATABASE_URL'] = "postgresql:///test_bitefinder"
 db.create_all()
 
 
-# Don't have WTForms use CSRF at all, since it's a pain to test
+# Don't have WTForms use CSRF at all
 
 app.config['WTF_CSRF_ENABLED'] = False
 

@@ -17,7 +17,7 @@ from models import db, User
 # before we import our app, since that will have already
 # connected to the database
 
-os.environ['DATABASE_URL'] = "postgresql:///bitefinder-test"
+os.environ['DATABASE_URL'] = "postgresql:///bitefinder_test"
 
 
 # Now we can import app

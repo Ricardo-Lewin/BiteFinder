@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 csrf = CSRFProtect(app)
 
-uri = os.environ.get('DATABASE_URL', 'postgresql:///database_name')
+uri = os.environ.get('DATABASE_URL', 'postgresql:///bite_finder_db')
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
@@ -26,9 +26,11 @@ app.config['SECRET_KEY'] = os.environ.get('1234', "it's a secret")
 
 connect_db(app)
 
+db.create_all()
 
 ##############################################################################
 # User signup/login/logout
+
 
 @app.before_request
 def add_user_to_g():
@@ -206,6 +208,3 @@ def user_get_restaurant():
 
 
 ##############################################################################
-
-if __name__ == '__main__':
-    db.create_all()
