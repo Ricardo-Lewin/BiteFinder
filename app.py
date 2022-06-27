@@ -14,9 +14,8 @@ app = Flask(__name__)
 
 csrf = CSRFProtect(app)
 
-# app.run(debug=True)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = (os.environ.get('DATABASE_URL', 'postgresql:///bite_finder_db'))
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///bite_finder_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('1234', "it's a secret")
 
