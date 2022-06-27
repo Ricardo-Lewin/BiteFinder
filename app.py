@@ -1,4 +1,5 @@
 import os
+import re 
 
 from flask import Flask, render_template, redirect, session, flash, g
 from flask_wtf.csrf import CSRFProtect
@@ -14,9 +15,13 @@ app = Flask(__name__)
 
 csrf = CSRFProtect(app)
 
+uri = os.environ.get('DATABASE_URL', 'postgresql:///database_name')
+if uri.startswith("postgres://"):
+ uri = uri.replace("postgres://", "postgresql://", 1)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///bite_finder_db')
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = os.environ.get('1234', "it's a secret")
 
 connect_db(app)
