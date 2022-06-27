@@ -5,6 +5,8 @@ db = SQLAlchemy()
 
 bcrypt = Bcrypt()
 
+db.create_all()
+
 
 def connect_db(app):
     db.app = app
