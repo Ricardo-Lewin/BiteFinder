@@ -18,7 +18,7 @@ _____
 
 ## Backend Technologies:
 - Primary Language: Python
-- Methodologies/Frameworks: Flask, SQLalchemy,PostgreSQL, Jinja (templating), Password Hashing/Salt (BCrypt)
+- Methodologies/Frameworks: Flask, SQLalchemy, PostgreSQL, Jinja (templating), Password Hashing/Salt (BCrypt), Unit Tests
 
 _____
 
