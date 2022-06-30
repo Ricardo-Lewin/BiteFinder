@@ -14,11 +14,11 @@ _____
 
 ## Frontend Technologies:
 - Primary Language: Javascript
-- Methodologies/Frameworks: AJAX, JQuery, WTForms (Form Validation and CSRF Protection)
+- Methodologies/Frameworks: AJAX, JQuery, WTForms (Form Validation and CSRF Protection), Jest Testing (Coming Soon)
 
 ## Backend Technologies:
 - Primary Language: Python
-- Methodologies/Frameworks: Flask, SQLalchemy,PostgreSQL, Jinja (templating), Password Hashing/Salt (BCrypt)
+- Methodologies/Frameworks: Flask, SQLalchemy,PostgreSQL, Jinja (templating), Password Hashing/Salt (BCrypt), Unit Tests
 
 _____
 
@@ -42,5 +42,12 @@ To get this application running, make sure you do the following in the Terminal:
   - `createdb bite_finder_db`
   - `flask run`
   
-  
+
+Future Features in the Works:
+1. Password Reset
+2. Save your favorite bites to go back to later!
+3. Account holders will be able to expand their search to more than just one choice!
+4. Stronger Zip Code Validation
+
+
 Bon Appetit!!
